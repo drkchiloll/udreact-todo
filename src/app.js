@@ -1,6 +1,7 @@
 var React = require('react'),
     ReactFire = require('reactfire'),
-    Firebase = require('firebase');
+    Firebase = require('firebase'),
+    Header = require('./components/Header');
 
 var fbUrl = 'https://reactutodo.firebaseio.com/';
 
@@ -11,9 +12,14 @@ var App = React.createClass({
   },
   render: function() {
     return (
-      <h1 className="red">
-        Hello!
-      </h1>
+      <div className='row panel panel-default'>
+        <div className='col-md-8 col-md-offset-2'>
+          <h2 className='text-center'>
+            To-Do List
+          </h2>
+          <Header />
+        </div>
+      </div>
     );
   }
 });
