@@ -46,8 +46,8 @@ function bundle() {
   return bundler
     .bundle()
     .on('error', notify)
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('./'))
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('./public/dist'))
 }
 bundler.on('update', bundle)
 
@@ -56,12 +56,12 @@ gulp.task('build', function() {
 });
 
 gulp.task('serve', function(done) {
-  gulp.src('')
+  gulp.src('./public')
     .pipe(server({
       livereload: {
         enable: true,
         filter: function(filePath, cb) {
-          if(/main.js/.test(filePath)) {
+          if(/bundle.js/.test(filePath)) {
             cb(true)
           } else if(/style.css/.test(filePath)){
             cb(true)
@@ -76,7 +76,7 @@ gulp.task('sass', function () {
   gulp.src('./sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('style.css'))
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('default', ['build', 'serve', 'sass', 'watch']);
