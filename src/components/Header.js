@@ -1,18 +1,30 @@
 var React = require('react');
 
 var Header = module.exports = React.createClass({
+  getInitialState : function() {
+    return {
+      text : ''
+    };
+  },
+  handleInputChange : function(evnt) {
+    this.setState({ text : evnt.target.value });
+  },
   handleClick : function() {
     //Send value of text input to Firebase
-    var todo = React.findDOMNode(this.refs.todo).value;
-    console.log(todo);
+    this.props.itemsStore.push({
+      text : this.state.text,
+      done : false
+    });
+    this.setState({ text : '' });
   },
   render : function() {
     return (
       <div className='input-group'>
         <input
           type='text'
+          value={this.state.text}
           className='form-control'
-          ref='todo'/>
+          onChange={this.handleInputChange}/>
         <span className='input-group-btn'>
           <button
             className='btn btn-default'
